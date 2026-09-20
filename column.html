@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>コラム | Mind Note</title>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif; color: #2d2d2d; background: #fdf1f6; font-size: 15px; line-height: 1.7; }
+    a { text-decoration: none; color: inherit; }
+
+    /* NAV */
+    nav { background: #d63384; position: sticky; top: 0; z-index: 100; }
+    .nav-inner { max-width: 880px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 54px; padding: 0 1.25rem; }
+    .logo { color: #fff; font-size: 18px; font-weight: bold; display: flex; align-items: center; gap: 8px; letter-spacing: .5px; }
+    .logo svg { width: 22px; height: 22px; }
+    .nav-links { list-style: none; display: flex; gap: 28px; }
+    .nav-links a { color: rgba(255,255,255,.88); font-size: 13px; transition: color .15s; }
+    .nav-links a:hover { color: #fff; }
+    .nav-links a.active { color: #fff; font-weight: bold; }
+
+    /* PAGE HEADER */
+    .page-header { background: #fce4ec; padding: 2rem 1.25rem 1.75rem; border-bottom: 1px solid #f3b8d1; }
+    .page-header-inner { max-width: 720px; margin: 0 auto; }
+    .page-header h1 { font-size: 20px; font-weight: bold; color: #ad1457; margin-bottom: .3rem; }
+    .page-header p { font-size: 13px; color: #c2185b; }
+
+    /* FILTER TABS */
+    .filter-bar { background: #fff; border-bottom: 1px solid #f3d1e0; padding: .75rem 1.25rem; }
+    .filter-inner { max-width: 720px; margin: 0 auto; display: flex; gap: 8px; flex-wrap: wrap; }
+    .filter-btn {
+      font-size: 12px; padding: 5px 14px; border-radius: 16px;
+      border: 1px solid #f0aecb; background: #fff; color: #c2185b;
+      cursor: pointer; transition: all .15s;
+    }
+    .filter-btn.on { background: #d63384; color: #fff; border-color: #d63384; }
+    .filter-btn:hover:not(.on) { border-color: #d63384; color: #ad1457; }
+
+    /* MAIN LAYOUT */
+    .main { max-width: 720px; margin: 0 auto; padding: 2rem 1.25rem 3rem; }
+
+    /* SECTION LABEL */
+    .sec-label {
+      font-size: 13px; font-weight: bold; color: #d63384;
+      margin: 2.25rem 0 1rem;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .sec-label::after { content: ''; flex: 1; height: 1px; background: #f3b8d1; }
+    .sec-label:first-child { margin-top: 0; }
+
+    /* COLUMN CARD */
+    .col-card {
+      background: #fff; border: 1px solid #f0aecb;
+      border-radius: 14px; padding: 1.3rem 1.4rem;
+      margin-bottom: 12px;
+    }
+    .col-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: .75rem; }
+    .col-title { font-size: 16px; font-weight: bold; color: #ad1457; line-height: 1.4; }
+    .col-badge {
+      font-size: 11px; padding: 3px 10px; border-radius: 10px;
+      flex-shrink: 0; margin-top: 2px; white-space: nowrap;
+    }
+    .badge-note  { background: #fce4ec; color: #ad1457; }
+    .badge-word  { background: #f8bbd0; color: #ad1457; }
+    .badge-sum   { background: #fff0f5; color: #c2185b; }
+
+    .col-date { font-size: 12px; color: #e08bb0; margin-bottom: .6rem; }
+    .col-text { font-size: 13px; color: #3a3a3a; line-height: 1.85; }
+
+    /* WORD BOX — psychology term highlight */
+    .word-box {
+      background: #fdf1f6; border-left: 3px solid #d63384;
+      border-radius: 0 8px 8px 0;
+      padding: .75rem 1rem; margin: .9rem 0;
+      display: grid; grid-template-columns: auto 1fr; gap: 6px 14px; align-items: baseline;
+    }
+    .word-en { font-size: 15px; font-weight: bold; color: #ad1457; grid-column: 1; }
+    .word-ja { font-size: 12px; color: #c2185b; grid-column: 2; align-self: center; }
+    .word-def { font-size: 12px; color: #4a4a4a; line-height: 1.7; grid-column: 1 / -1; margin-top: 2px; }
+    .word-quote {
+      font-size: 12px; color: #c2185b; font-style: italic;
+      border-top: 1px solid #f3b8d1; margin-top: .5rem; padding-top: .5rem;
+      grid-column: 1 / -1;
+    }
+
+    /* TAGS */
+    .col-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: .9rem; }
+    .tag { font-size: 11px; color: #c2185b; background: #fce4ec; padding: 2px 10px; border-radius: 10px; }
+
+    /* FOOTER */
+    footer { background: #ad1457; padding: 1.75rem 1.25rem; text-align: center; }
+    .footer-links { list-style: none; display: flex; justify-content: center; gap: 20px; margin-bottom: .75rem; }
+    .footer-links a { font-size: 12px; color: rgba(255,255,255,.78); }
+    .footer-links a:hover { color: #fff; }
+    footer p { font-size: 12px; color: rgba(255,255,255,.6); }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="logo">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 21C12 21 4 13.5 4 8.5C4 5.46 6.46 3 9.5 3C11.04 3 12.43 3.62 13.44 4.64C13.74 4.95 14 5.28 14.22 5.64C14.44 5.28 14.7 4.95 15 4.64C16.01 3.62 17.4 3 18.94 3C21.98 3 24.44 5.46 24.44 8.5C24.44 13.5 16 21 16 21" fill="#fff" stroke="none"/></svg>
+      Mind Note
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">トップ</a></li>
+      <li><a href="blog.html">ブログ</a></li>
+      <li><a href="column.html" class="active">コラム</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="page-header-inner">
+    <h1>コラム</h1>
+    <p>気づき・体験談、本や論文で出会った心理学用語の調査メモ、振り返りまとめなど。</p>
+  </div>
+</div>
+
+<div class="filter-bar">
+  <div class="filter-inner">
+    <button class="filter-btn on">すべて</button>
+    <button class="filter-btn">気づき・体験</button>
+    <button class="filter-btn">用語メモ</button>
+    <button class="filter-btn">まとめ</button>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- 気づき・体験 section -->
+  <div class="sec-label">気づき・体験</div>
+
+  <div class="col-card">
+    <div class="col-header">
+      <div class="col-title">確証バイアスに気づいた日</div>
+      <span class="col-badge badge-note">気づき・体験</span>
+    </div>
+    <div class="col-date">2025年6月14日</div>
+    <p class="col-text">「確証バイアス」を本で読んだ直後、まさに自分がそれをやっていたことに気づいた。ある占いの結果が気に入って、当たっている部分だけを覚えていて、外れている部分はすっかり忘れていたのだ。<br><br>
+    知識として知っているのと、自分の中の癖として自覚するのとでは全く違う。読んだその日のうちに実例を見つけられたのは、逆に面白い体験だった。<br><br>
+    それ以来、「自分に都合のいい情報だけ集めていないか？」と一呼吸置くようにしている。完全にはなくせないが、意識するだけでも判断が少し変わる気がする。</p>
+    <div class="col-tags"><span class="tag">#確証バイアス</span><span class="tag">#認知心理学</span><span class="tag">#気づき</span></div>
+  </div>
+
+  <div class="col-card">
+    <div class="col-header">
+      <div class="col-title">傾聴の練習でつい口を挟みそうになった話</div>
+      <span class="col-badge badge-note">気づき・体験</span>
+    </div>
+    <div class="col-date">2025年6月3日</div>
+    <p class="col-text">傾聴の練習として、友人の悩み相談をただ聞くだけにしてみた。想像以上に難しかったのは、「アドバイスしたい衝動」を抑えることだった。<br><br>
+    相手が話し終わる前に解決策を考え始めている自分に気づき、何度も言葉を飲み込んだ。ただ相づちを打って、感情の部分を言い換えて返すだけで、相手の方が自分で答えにたどり着いていく場面もあった。<br><br>
+    「聞く」というのは受け身の行為ではなく、かなり能動的な技術なのだと実感した回だった。</p>
+    <div class="col-tags"><span class="tag">#傾聴</span><span class="tag">#カウンセリング</span><span class="tag">#気づき</span></div>
+  </div>
+
+  <div class="col-card">
+    <div class="col-header">
+      <div class="col-title">欲求階層説を自分の毎日にあてはめてみた</div>
+      <span class="col-badge badge-note">気づき・体験</span>
+    </div>
+    <div class="col-date">2025年5月30日</div>
+    <p class="col-text">マズローの欲求階層説を図にまとめ直したあと、試しに自分の1日の行動を階層ごとに分類してみた。睡眠・食事は生理的欲求、締め切りへの不安は安全欲求、SNSでの反応が気になるのは承認欲求…と、思った以上にきれいに当てはまって驚いた。<br><br>
+    一方で「自己実現」に当たる行動は、意識しないと1日の中にほとんど出てこないことにも気づいた。理論を知るだけでなく、自分の生活に当てはめてみることで初めて実感が伴うのだと思う。</p>
+    <div class="col-tags"><span class="tag">#マズロー</span><span class="tag">#人格心理学</span><span class="tag">#気づき</span></div>
+  </div>
+
+  <!-- 用語メモ section -->
+  <div class="sec-label">用語メモ（本・論文から）</div>
+
+  <div class="col-card">
+    <div class="col-header">
+      <div class="col-title">認知心理学の基本用語を英語でも調べてみた</div>
+      <span class="col-badge badge-word">用語メモ</span>
+    </div>
+    <div class="col-date">2025年6月10日</div>
+    <p class="col-text">洋書の心理学入門を読んでいると、日本語の教科書とは違う角度から説明されていて理解が深まることが多い。英語表現もあわせてメモしておく。</p>
+
+    <div class="word-box">
+      <span class="word-en">confirmation bias</span>
+      <span class="word-ja">確証バイアス</span>
+      <div class="word-def">自分の考えや仮説を支持する情報ばかりを集め、反する情報を軽視してしまう認知的な傾向。confirm（確認する）＋ bias（偏り）という構成そのまま。</div>
+      <div class="word-quote">"We tend to seek information that confirms what we already believe." / 「人はすでに信じていることを裏づける情報を探しがちだ」</div>
+    </div>
+
+    <div class="word-box">
+      <span class="word-en">mere exposure effect</span>
+      <span class="word-ja">単純接触効果</span>
+      <div class="word-def">同じ対象に繰り返し接するうちに、それに対する好感度が高まっていく現象。mere（単なる）exposure（接触）というシンプルな語の組み合わせが、内容の分かりやすさにもつながっている。</div>
+      <div class="word-quote">"Repeated exposure alone can increase our liking for something." / 「繰り返し接するだけでも好感度は上がる」</div>
+    </div>
+
+    <div class="word-box">
+      <span class="word-en">reciprocity</span>
+      <span class="word-ja">返報性（の法則）</span>
+      <div class="word-def">何かを与えられると、お返しをしなければという気持ちが生まれる心理的傾向。ラテン語 reciprocus（互いに）に由来し、社会心理学ではよく「norm of reciprocity（返報性の規範）」という形で登場する。</div>
+      <div class="word-quote">"People feel obligated to return a favor." / 「人は受けた好意にお返しをしなければと感じる」</div>
+    </div>
+
+    <div class="col-tags"><span class="tag">#心理学英語</span><span class="tag">#認知心理学</span><span class="tag">#翻訳メモ</span></div>
+  </div>
+
+  <div class="col-card">
+    <div class="col-header">
+      <div class="col-title">発達心理学・エリクソンまわりの用語整理</div>
+      <span class="col-badge badge-word">用語メモ</span>
+    </div>
+    <div class="col-date">2025年6月7日</div>
+    <p class="col-text">エリクソンの発達段階説を読んでいると、聞き慣れない専門用語が多い。英語の原著論文でどう表現されているかも合わせて調べた。</p>
+
+    <div class="word-box">
+      <span class="word-en">identity</span>
+      <span class="word-ja">アイデンティティ（自己同一性）</span>
+      <div class="word-def">「自分は何者か」という一貫した自己認識のこと。エリクソンの発達段階説では、青年期の中心的な課題として「identity vs. role confusion（アイデンティティ対役割混乱）」が挙げられる。</div>
+      <div class="word-quote">"Adolescence is a period of identity formation." / 「青年期はアイデンティティ形成の時期である」</div>
+    </div>
+
+    <div class="word-box">
+      <span class="word-en">psychosocial development</span>
+      <span class="word-ja">心理社会的発達</span>
+      <div class="word-def">心理面と社会関係の両方が絡み合いながら発達していくという考え方。エリクソンの理論全体を指す用語で、フロイトの「psychosexual（心理性的）発達」との対比でよく説明される。</div>
+      <div class="word-quote">"Erikson proposed eight stages of psychosocial development." / 「エリクソンは心理社会的発達の8段階を提唱した」</div>
+    </div>
+
+    <div class="col-tags"><span class="tag">#心理学英語</span><span class="tag">#発達心理学</span><span class="tag">#翻訳メモ</span></div>
+  </div>
+
+  <div class="col-card">
+    <div class="col-header">
+      <div class="col-title">性格心理学「ビッグファイブ」の英語表現</div>
+      <span class="col-badge badge-word">用語メモ</span>
+    </div>
+    <div class="col-date">2025年5月20日</div>
+    <p class="col-text">ビッグファイブ理論の5因子は英語の頭文字を取って「OCEAN」と呼ばれることがあると知り、覚えやすさに感動したのでメモしておく。</p>
+
+    <div class="word-box">
+      <span class="word-en">openness</span>
+      <span class="word-ja">開放性</span>
+      <div class="word-def">新しい経験や考え方への興味・柔軟さを表す因子。想像力や好奇心の強さと関連するとされる。</div>
+    </div>
+
+    <div class="word-box">
+      <span class="word-en">conscientiousness</span>
+      <span class="word-ja">誠実性</span>
+      <div class="word-def">計画性や責任感、自己管理能力の高さを表す因子。仕事や学業のパフォーマンスと相関が高いとされる特性。</div>
+    </div>
+
+    <div class="word-box">
+      <span class="word-en">neuroticism</span>
+      <span class="word-ja">神経症的傾向</span>
+      <div class="word-def">不安や情緒の不安定さを感じやすい傾向。数値が高いほどネガティブというわけではなく、リスクへの感度の高さとして働く場合もある。</div>
+    </div>
+
+    <div class="col-tags"><span class="tag">#心理学英語</span><span class="tag">#性格心理学</span><span class="tag">#翻訳メモ</span></div>
+  </div>
+
+  <!-- まとめ section -->
+  <div class="sec-label">まとめ・振り返り</div>
+
+  <div class="col-card">
+    <div class="col-header">
+      <div class="col-title">3ヶ月続けて変わったこと、正直まとめ</div>
+      <span class="col-badge badge-sum">まとめ</span>
+    </div>
+    <div class="col-date">2025年5月25日</div>
+    <p class="col-text">記録を始めて3ヶ月。大きな変化はないけど、小さい変化が積み重なっている感じがある。正直に書いておく。<br><br>
+    <strong>よくなったこと：</strong>日常の出来事を心理学の用語で説明できるようになってきた。人の言動にイラッとしたとき、「これは○○バイアスかも」と一歩引いて考える余裕ができた。<br><br>
+    <strong>変わらなかったこと：</strong>専門書を1冊通読するペースはまだ遅い。用語は覚えても、理論同士のつながりを説明するのはまだ苦手。<br><br>
+    結論：劇的な理解の飛躍はないが、日常の解像度が少しずつ上がっている実感がある。それで十分だと思っている。</p>
+    <div class="col-tags"><span class="tag">#3ヶ月</span><span class="tag">#振り返り</span><span class="tag">#成果</span></div>
+  </div>
+
+</div>
+
+<footer>
+  <ul class="footer-links">
+    <li><a href="index.html">トップ</a></li>
+    <li><a href="blog.html">ブログ</a></li>
+    <li><a href="column.html">コラム</a></li>
+    <li><a href="about.html">About</a></li>
+  </ul>
+  <p>&copy; 2025 Mind Note</p>
+</footer>
+
+</body>
+</html>
