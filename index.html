@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mind Note | 心理学まなびノート</title>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif; color: #2d2d2d; background: #fff; font-size: 15px; line-height: 1.7; }
+    a { text-decoration: none; color: inherit; }
+    .wrap { max-width: 880px; margin: 0 auto; padding: 0 1.25rem; }
+
+    /* ===== NAV ===== */
+    nav {
+      background: #d63384;
+      position: sticky; top: 0; z-index: 100;
+    }
+    .nav-inner {
+      max-width: 880px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 54px; padding: 0 1.25rem;
+    }
+    .logo {
+      color: #fff; font-size: 18px; font-weight: bold;
+      display: flex; align-items: center; gap: 8px; letter-spacing: .5px;
+    }
+    .logo svg { width: 22px; height: 22px; fill: #fff; }
+    .nav-links { list-style: none; display: flex; gap: 28px; }
+    .nav-links a {
+      color: rgba(255,255,255,.88); font-size: 13px;
+      transition: color .15s;
+    }
+    .nav-links a:hover { color: #fff; }
+
+    /* ===== HERO ===== */
+    .hero { background: #fce4ec; padding: 3.5rem 1.25rem 3rem; }
+    .hero-inner {
+      max-width: 880px; margin: 0 auto;
+      display: flex; align-items: center; gap: 2.5rem; flex-wrap: wrap;
+    }
+    .hero-text { flex: 1; min-width: 260px; }
+    .hero-badge {
+      display: inline-block; background: #d63384; color: #fff;
+      font-size: 12px; padding: 4px 14px; border-radius: 20px; margin-bottom: .9rem;
+    }
+    .hero-text h1 {
+      font-size: 26px; font-weight: bold; color: #ad1457; line-height: 1.5; margin-bottom: .75rem;
+    }
+    .hero-text p { font-size: 14px; color: #c2185b; line-height: 1.8; max-width: 420px; }
+    .hero-cta {
+      display: inline-block; margin-top: 1.5rem;
+      background: #d63384; color: #fff;
+      font-size: 13px; padding: 10px 24px; border-radius: 24px;
+      transition: background .15s;
+    }
+    .hero-cta:hover { background: #b5266f; }
+    .hero-img { flex: 0 0 160px; display: flex; justify-content: center; }
+    .hero-circle {
+      width: 148px; height: 148px; border-radius: 50%;
+      background: #f8bbd0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .hero-circle svg { width: 72px; height: 72px; fill: none; stroke: #ad1457; stroke-width: 1.6; }
+
+    /* ===== STATS ===== */
+    .stats { background: #fdf1f6; padding: 1.75rem 1.25rem; }
+    .stats-grid {
+      max-width: 880px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px;
+    }
+    .stat-card {
+      background: #fff; border: 1px solid #f3b8d1;
+      border-radius: 12px; padding: 1.1rem 1.25rem; text-align: center;
+    }
+    .stat-num { font-size: 24px; font-weight: bold; color: #d81b60; }
+    .stat-num span { font-size: 14px; font-weight: normal; }
+    .stat-label { font-size: 12px; color: #e06090; margin-top: 4px; }
+
+    /* ===== SECTION COMMON ===== */
+    .section { padding: 2.25rem 1.25rem; }
+    .section.alt { background: #fdf1f6; }
+    .section-title {
+      font-size: 15px; font-weight: bold; color: #ad1457;
+      margin-bottom: 1.1rem; padding-bottom: 8px;
+      border-bottom: 2px solid #f06292;
+      max-width: 880px; margin-left: auto; margin-right: auto;
+      margin-bottom: 1.25rem;
+    }
+
+    /* ===== MENU CARDS ===== */
+    .menu-grid {
+      max-width: 880px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px;
+    }
+    .menu-card {
+      background: #fff; border: 1px solid #f0aecb;
+      border-radius: 12px; padding: 1.1rem 1.25rem;
+      display: flex; align-items: flex-start; gap: 14px;
+      transition: border-color .15s, box-shadow .15s;
+    }
+    .menu-card:hover { border-color: #d63384; box-shadow: 0 2px 8px rgba(214,51,132,.1); }
+    .menu-icon {
+      width: 44px; height: 44px; border-radius: 10px;
+      background: #fce4ec; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .menu-icon svg { width: 24px; height: 24px; stroke: #c2185b; fill: none; stroke-width: 1.7; }
+    .menu-card h3 { font-size: 14px; font-weight: bold; color: #ad1457; margin-bottom: 5px; }
+    .menu-card p { font-size: 12px; color: #c2185b; line-height: 1.6; }
+
+    /* ===== BLOG LIST ===== */
+    .blog-list {
+      max-width: 880px; margin: 0 auto;
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .blog-item {
+      background: #fff; border: 1px solid #f0aecb;
+      border-radius: 10px; padding: .85rem 1.1rem;
+      display: flex; align-items: baseline; gap: 18px;
+      transition: border-color .15s;
+    }
+    .blog-item:hover { border-color: #d63384; }
+    .blog-date { font-size: 12px; color: #e08bb0; flex-shrink: 0; }
+    .blog-title { font-size: 13px; color: #ad1457; }
+    .view-all {
+      max-width: 880px; margin: 1rem auto 0;
+      text-align: right;
+    }
+    .view-all a { font-size: 12px; color: #d63384; }
+
+    /* ===== COLUMN CARDS ===== */
+    .col-grid {
+      max-width: 880px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px;
+    }
+    .col-card {
+      background: #fce4ec; border: 1px solid #f0aecb;
+      border-radius: 12px; padding: 1.1rem 1.25rem;
+    }
+    .col-card h3 { font-size: 14px; font-weight: bold; color: #ad1457; margin-bottom: 6px; }
+    .col-card p { font-size: 12px; color: #c2185b; line-height: 1.6; }
+    .col-tag {
+      display: inline-block; font-size: 11px;
+      background: #f8bbd0; color: #ad1457;
+      padding: 2px 10px; border-radius: 10px; margin-top: .6rem;
+    }
+
+    /* ===== FOOTER ===== */
+    footer { background: #ad1457; padding: 1.75rem 1.25rem; text-align: center; }
+    .footer-links { list-style: none; display: flex; justify-content: center; gap: 20px; margin-bottom: .75rem; }
+    .footer-links a { font-size: 12px; color: rgba(255,255,255,.78); }
+    .footer-links a:hover { color: #fff; }
+    footer p { font-size: 12px; color: rgba(255,255,255,.6); }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <div class="logo">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 21C12 21 4 13.5 4 8.5C4 5.46 6.46 3 9.5 3C11.04 3 12.43 3.62 13.44 4.64C13.74 4.95 14 5.28 14.22 5.64C14.44 5.28 14.7 4.95 15 4.64C16.01 3.62 17.4 3 18.94 3C21.98 3 24.44 5.46 24.44 8.5C24.44 13.5 16 21 16 21" fill="#fff" stroke="none"/></svg>
+      Mind Note
+    </div>
+    <ul class="nav-links">
+      <li><a href="index.html">トップ</a></li>
+      <li><a href="blog.html">ブログ</a></li>
+      <li><a href="column.html">コラム</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <span class="hero-badge">心理学まなびノート</span>
+      <h1>こころのしくみを、<br>すこしずつ紐解いていく。</h1>
+      <p>本や論文で学んだ心理学の知識、日々の気づきをゆるく記録していくサイトです。専門用語も、自分のことばに置き換えて。</p>
+      <a class="hero-cta" href="blog.html">ブログを読む</a>
+    </div>
+    <div class="hero-img">
+      <div class="hero-circle">
+        <!-- head / mind icon -->
+        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20 40 C14 36 12 28 16 21 C20 13 30 9 39 12 C48 15 53 24 50 33 C48 39 44 42 44 47 L44 54 L26 54 L26 47 C26 44 22 42 20 40Z" stroke="#ad1457" stroke-width="2" fill="#f4a6c4"/>
+          <path d="M28 25 C30 22 34 21 37 23" stroke="#ad1457" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="34" cy="30" r="1.6" fill="#ad1457" stroke="none"/>
+          <line x1="26" y1="54" x2="26" y2="58" stroke="#ad1457" stroke-width="2" stroke-linecap="round"/>
+          <line x1="44" y1="54" x2="44" y2="58" stroke="#ad1457" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-num">64<span> 日</span></div>
+      <div class="stat-label">継続記録中</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">18<span> 冊</span></div>
+      <div class="stat-label">読了した本</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">42<span> 件</span></div>
+      <div class="stat-label">まとめた用語</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">7<span> 本</span></div>
+      <div class="stat-label">読んだ論文</div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTENTS MENU -->
+<section class="section">
+  <div class="section-title">コンテンツ</div>
+  <div class="menu-grid">
+    <a href="blog.html" class="menu-card">
+      <div class="menu-icon">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="5" width="18" height="14" rx="2"/><line x1="7" y1="9" x2="17" y2="9"/><line x1="7" y1="13" x2="13" y2="13"/></svg>
+      </div>
+      <div>
+        <h3>ブログ</h3>
+        <p>日々の学習記録や、ふと気づいた心理学的な視点を残しています。</p>
+      </div>
+    </a>
+    <a href="column.html" class="menu-card">
+      <div class="menu-icon">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><polyline points="4 17 9 12 13 16 22 6"/><line x1="14" y1="6" x2="22" y2="6"/><line x1="22" y1="6" x2="22" y2="14"/></svg>
+      </div>
+      <div>
+        <h3>コラム</h3>
+        <p>関連する漫画・イラストや、テーマごとの軽い小論文をまとめたコンテンツ。</p>
+      </div>
+    </a>
+    <a href="about.html" class="menu-card">
+      <div class="menu-icon">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+      </div>
+      <div>
+        <h3>About</h3>
+        <p>このサイトについて・管理人プロフィール・リンク集。</p>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- BLOG PREVIEW -->
+<section class="section alt">
+  <div class="section-title">最近のブログ</div>
+  <div class="blog-list">
+    <div class="blog-item">
+      <span class="blog-date">2025-06-12</span>
+      <span class="blog-title">認知バイアスについて調べてみた</span>
+    </div>
+    <div class="blog-item">
+      <span class="blog-date">2025-06-10</span>
+      <span class="blog-title">「返報性の法則」を日常で見つける</span>
+    </div>
+    <div class="blog-item">
+      <span class="blog-date">2025-06-07</span>
+      <span class="blog-title">発達心理学、エリクソンの理論メモ</span>
+    </div>
+    <div class="blog-item">
+      <span class="blog-date">2025-06-03</span>
+      <span class="blog-title">傾聴の練習で気づいたこと</span>
+    </div>
+  </div>
+  <div class="view-all"><a href="blog.html">すべてのブログ記事を見る →</a></div>
+</section>
+
+<!-- COLUMN PREVIEW -->
+<section class="section">
+  <div class="section-title">コラムピックアップ</div>
+  <div class="col-grid">
+    <div class="col-card">
+      <h3>性格心理学のきほん</h3>
+      <p>ビッグファイブ理論をイラストと一緒にやさしく解説。</p>
+      <span class="col-tag">性格心理学</span>
+    </div>
+    <div class="col-card">
+      <h3>心理学者ピックアップ</h3>
+      <p>フロイト・ユング・マズローなど、代表的な心理学者を紹介。</p>
+      <span class="col-tag">人物紹介</span>
+    </div>
+    <div class="col-card">
+      <h3>臨床心理と日常の境目</h3>
+      <p>専門知識をどう日常に落とし込むか、実例をまじえて考察。</p>
+      <span class="col-tag">実践編</span>
+    </div>
+  </div>
+  <div class="view-all"><a href="column.html">すべてのコラムを見る →</a></div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <ul class="footer-links">
+    <li><a href="index.html">トップ</a></li>
+    <li><a href="blog.html">ブログ</a></li>
+    <li><a href="column.html">コラム</a></li>
+    <li><a href="about.html">About</a></li>
+  </ul>
+  <p>&copy; 2025 Mind Note</p>
+</footer>
+
+</body>
+</html>
